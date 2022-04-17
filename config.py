@@ -11,6 +11,8 @@ def get_args():
         default="../datas/train/", type=str) # "../NABirds/train/"
     parser.add_argument("--val_root", 
         default="../datas/test/", type=str)
+    parser.add_argument("--data_root", type=str, default="E:/DeepLearning/FGtask/datasets")
+    parser.add_argument("--dataset", type=str, choices=["FGSCR", "MTARSI", "CUB_200_2011"])
     parser.add_argument("--data_size", default=384, type=int)
     parser.add_argument("--num_rows", default=0, type=int)
     parser.add_argument("--num_cols", default=0, type=int)
@@ -33,11 +35,11 @@ def get_args():
     parser.add_argument("--global_feature_dim", default=1536, type=int)
     
     # loader
-    parser.add_argument("--num_workers", default=2, type=int)
-    parser.add_argument("--batch_size", default=8, type=int)
+    parser.add_argument("--num_workers", default=1, type=int)
+    parser.add_argument("--batch_size", default=1, type=int)
     
     # about model building
-    parser.add_argument("--num_classes", default=200, type=int)
+    parser.add_argument("--num_classes", default=42, type=int)
     
     # abput learning rate scheduler
     parser.add_argument("--warmup_batchs", default=800, type=int)

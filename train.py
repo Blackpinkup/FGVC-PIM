@@ -8,8 +8,9 @@ import math
 import copy
 # import torchvision.models as torch_models
 
-from data.dataset import ImageDataset
+# from data.dataset import ImageDataset
 from config import get_args
+from utils.data_utils import get_loader
 
 # import apex
 # https://nvidia.github.io/apex/amp.html
@@ -34,24 +35,27 @@ def set_environment(args):
 
     args.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-    train_set = ImageDataset(istrain=True, 
-                            root=args.train_root,
-                            data_size=args.data_size,
-                            return_index=True)
-    save_json(args.save_root + "data_info/train_indexs.json", train_set.data_infos) # save train path and index.
+    # train_set = ImageDataset(istrain=True, 
+    #                         root=args.train_root,
+    #                         data_size=args.data_size,
+    #                         return_index=True)
+    # save_json(args.save_root + "data_info/train_indexs.json", train_set.data_infos) # save train path and index.
 
-    train_loader = torch.utils.data.DataLoader(train_set, num_workers=args.num_workers, shuffle=True, batch_size=args.batch_size)
+    # train_loader = torch.utils.data.DataLoader(train_set, num_workers=args.num_workers, shuffle=True, batch_size=args.batch_size)
 
-    test_set = ImageDataset(istrain=False, 
-                           root=args.val_root,
-                           data_size=args.data_size,
-                           return_index=False)
-    save_json(args.save_root + "data_info/test_indexs.json", test_set.data_infos) # save test path and index.
+    # test_set = ImageDataset(istrain=False, 
+    #                        root=args.val_root,
+    #                        data_size=args.data_size,
+    #                        return_index=False)
+    # save_json(args.save_root + "data_info/test_indexs.json", test_set.data_infos) # save test path and index.
     
-    test_loader = torch.utils.data.DataLoader(test_set, num_workers=1, shuffle=False, batch_size=args.batch_size)
+    # test_loader = torch.utils.data.DataLoader(test_set, num_workers=1, shuffle=False, batch_size=args.batch_size)
+    train_loader, test_loader = get_loader(args)
+    
+    
 
-    print("train samples: {}, train batchs: {}".format(len(train_set), len(train_loader)))
-    print("test samples: {}, test batchs: {}".format(len(test_set), len(test_loader)))
+    print("train batchs: {}".format(len(train_loader)))
+    print("test batchs: {}".format(len(test_loader)))
     
     if args.model_name == "efficientnet-b7":
         from models.EfficientNet_FPN import DetEfficientNet
@@ -131,7 +135,8 @@ def train(args, epoch, model, scaler, optimizer, schedules, train_loader, save_d
     model.train()
 
     optimizer.zero_grad()
-    for batch_id, (ids, datas, labels) in enumerate(train_loader):
+    #for batch_id, (ids, datas, labels) in enumerate(train_loader):
+    for batch_id, (datas, labels) in enumerate(train_loader):
 
         # adjust learning rate
         iterations = epoch * len(train_loader) + batch_id
