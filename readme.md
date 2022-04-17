@@ -1,3 +1,7 @@
+### Fix dataloader enable train on CUB format datasets
+
+To use our fixed dataloader, please unzip utils.zip first. And we also update config.py and train.py, if needed we will modify eval.py in the future.
+
 # A Novel Plug-in Module for Fine-grained Visual Classification
 
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/a-novel-plug-in-module-for-fine-grained-1/fine-grained-image-classification-on-cub-200)](https://paperswithcode.com/sota/fine-grained-image-classification-on-cub-200?p=a-novel-plug-in-module-for-fine-grained-1)
