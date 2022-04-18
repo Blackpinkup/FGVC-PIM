@@ -1,6 +1,7 @@
 ### Fix dataloader enable train on CUB format datasets
 
 To use our fixed dataloader, please unzip utils.zip first. And we also update config.py and train.py, if needed we will modify eval.py in the future.
+2022.4.18 We update eval.py.
 
 # A Novel Plug-in Module for Fine-grained Visual Classification
 
