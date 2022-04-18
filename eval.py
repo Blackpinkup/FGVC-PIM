@@ -7,8 +7,9 @@ import numpy as np
 import math
 import copy
 
-from data.dataset import ImageDataset
+#from data.dataset import ImageDataset
 from config_eval import get_args
+from utils.data_utils import get_loader
 
 import tqdm
 
@@ -17,15 +18,15 @@ def set_environment(args):
 
     args.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
    
-
-    test_set = ImageDataset(istrain=False, 
-                           root=args.val_root,
-                           data_size=args.data_size,
-                           return_index=False)
+    _, test_loader = get_loader(args)
+    # test_set = ImageDataset(istrain=False, 
+    #                        root=args.val_root,
+    #                        data_size=args.data_size,
+    #                        return_index=False)
     
-    test_loader = torch.utils.data.DataLoader(test_set, num_workers=1, shuffle=True, batch_size=args.batch_size)
+    # test_loader = torch.utils.data.DataLoader(test_set, num_workers=1, shuffle=True, batch_size=args.batch_size)
 
-    print("test samples: {}, test batchs: {}".format(len(test_set), len(test_loader)))
+    print("test batchs: {}".format(len(test_loader)))
     
     if args.model_name == "efficientnet-b7":
         from models.EfficientNet_FPN import DetEfficientNet
