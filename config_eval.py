@@ -9,6 +9,8 @@ def get_args():
 
     parser.add_argument("--val_root", 
         default="E:/Project/Datasets/nabirds/NABirds/test/", type=str)
+    parser.add_argument("--data_root", type=str, default="E:/DeepLearning/FGtask/datasets")
+    parser.add_argument("--dataset", type=str, choices=["FGSCR", "MTARSI", "CUB_200_2011"])
     parser.add_argument("--data_size", default=384, type=int)
     parser.add_argument("--num_rows", default=0, type=int)
     parser.add_argument("--num_cols", default=0, type=int)
