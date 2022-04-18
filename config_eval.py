@@ -31,7 +31,7 @@ def get_args():
     # [2048, 512, 128, 32] for CUB200-2011
     # [256, 128, 64, 32] for NABirds
     parser.add_argument("--num_selects",
-        default=[256, 128, 64, 32], type=list)
+        default=[2048, 512, 128, 32], type=list)
     parser.add_argument("--global_feature_dim", default=1536, type=int)
     
     # loader
